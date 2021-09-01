@@ -1,0 +1,138 @@
+---
+title: 'Cancer Risk from Air Toxins '
+output: html_document
+---
+  
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+library(rgdal)
+library(leaflet)
+library(RColorBrewer)
+library(flextable)
+library(htmltools)
+library(htmlwidgets)
+library(leafpop)
+
+## read in the shapefile
+or_tot1 = readOGR("gis/tract_cty_pop_atrisk.shp",
+              layer="tract_cty_pop_atrisk")
+
+## filter out tracts that do not have a cancer risk (there are ~8 treacts with zero population)
+or_tot <- or_tot1[!is.na(or_tot1@data$cancer_ris),]
+
+## remove the shapefile with zero population tracts from the environment
+rm(or_tot1)
+#cty <- read.csv("tract_cty_pop.csv", stringsAsFactors = FALSE)
+#or_tot@data <- merge(or_tot@data, cty, by = "Tract", all.x = TRUE)
+
+## add path for pre-generated graphs for each tract
+or_tot@data$at_img <- paste0("images/totp_", or_tot@data$Tract, ".png" )
+or_tot@data$form_img <- paste0("images/form_", or_tot@data$Tract, ".png" )
+or_tot@data$dpm_img <- paste0("images/dpm_", or_tot@data$Tract, ".png" )
+
+#create pop-ups, one for each layer in the map
+pop_title <- paste0("<u>Tract ", or_tot@data$Tract, ", ", or_tot@data$County, " County </u> <br/> Population (2010) ", or_tot@data$Population, "<br>" )
+or_tot@data$lab = paste0( or_tot@data$Tract, ", ", or_tot@data$County, " County")
+or_tot@data$popn = 
+    paste(pop_title, 
+    "<b>Tract cancer risk :</b> ", as.character(round(or_tot@data$cancer_ris)), " per million",                              
+    "<br><b>State-wide cancer risk :</b> 23 per million <br><br><br>")
+
+
+or_tot@data$popf = 
+    paste(pop_title, 
+    "<b>Tract cancer risk from formaldehyde :</b> ", as.character(round(or_tot@data$formaldehy)), " per million",     
+    "<br><b>State-wide cancer risk from formaldehyde:</b> 7 per million <br><br><br>")
+
+
+or_tot@data$popd = 
+    paste(pop_title, 
+    "<b>Tract cancer risk from diesel pm :</b> ", as.character(round(or_tot@data$dpm_ris)), " per million", 
+    "<br><b>State-wide cancer risk from diesel pm:</b> 3 per million <br><br><br>")
+
+## assign color palettes to the choropleth maps
+npal <- colorNumeric(palette = "YlOrRd", domain = or_tot$cancer_ris)
+fpal <- colorNumeric(palette = "BuPu", domain = or_tot$formaldehy)
+dpal <- colorNumeric(palette = "Greys", domain = or_tot$dpm_ris)
+
+## remove any existing map....useful for the debugging phase
+rm(m)
+
+## create the leaflet map
+m = leaflet(height = 800) %>%      
+  addProviderTiles(providers$Esri.WorldGrayCanvas, group = "ESRI World Gray") %>% 
+  addProviderTiles(providers$Esri.WorldStreetMap, group = "ESRI World Street") %>%
+  setView(-121, 44, 7) %>% 
+  addPolygons(data=or_tot, group = "45 air toxins", color = "#cccccc", weight = 0.2, smoothFactor = 0.5,
+              opacity = 0.4, fillOpacity = 0.7,
+              fillColor = ~npal(cancer_ris),
+              label = ~lab,
+              popup = ~popn, 
+              highlightOptions = highlightOptions(color = "#aaaaaa", weight = 1, bringToFront = TRUE)) %>%
+  addPopupImages(image = or_tot@data$at_img, group = "45 air toxins", height = 500 ) %>%
+  addLegend(group = "45 air toxins", "bottomleft", title = "cancer risk <br>(# per million)", pal = npal, values = or_tot@data$cancer_ris) %>%
+  
+  addPolygons(data=or_tot, group = "formaldehyde", color = "#cccccc", weight = 0.2, smoothFactor = 0.5,
+              opacity = 0.4, fillOpacity = 0.7,
+              fillColor = ~fpal(formaldehy),
+              label = ~lab,
+              popup = ~popf, 
+              highlightOptions = highlightOptions(color = "#aaaaaa", weight = 1, bringToFront = TRUE)) %>%
+  addPopupImages(image = or_tot@data$form_img, group = "formaldehyde", width = 300 ) %>%
+  addLegend(group = "formaldehyde", "bottomleft", title = "cancer risk <br>(# per million)", pal = fpal, values = or_tot@data$formaldehy) %>%
+  
+  addPolygons(data=or_tot, group = "diesel pm", color = "#cccccc", weight = 0.2, smoothFactor = 0.5,
+              opacity = 0.4, fillOpacity = 0.8,
+              fillColor = ~dpal(dpm_ris),
+              label = ~lab,
+              popup = ~popd, 
+              highlightOptions = highlightOptions(color = "#aaaaaa", weight = 1, bringToFront = TRUE)) %>%
+  addPopupImages(image = or_tot@data$dpm_img, group = "diesel pm", width = 300 ) %>%
+  addLegend(group = "diesel pm", "bottomleft", title = "cancer risk <br>(# per million)", pal = dpal, values = or_tot@data$dpm_ris) %>%
+
+  addLayersControl(
+        baseGroups = c("ESRI World Street", "ESRI World Gray" ),
+        overlayGroups = c("45 air toxins", "formaldehyde", "diesel pm"),
+        options = layersControlOptions(collapsed = TRUE)) %>%
+  hideGroup("formaldehyde") %>%
+  hideGroup("diesel pm")
+
+
+```
+Based on NATA 2014 ambient air concetrations
+<br><br>
+```{r map, out.width = '100%', echo = FALSE }
+## display the map
+m
+
+```
+
+
+<p>&nbsp;</p>
+   <details> <summary><span style="font-size:20px"> How was the cancer risk calculated?
+   </span>
+  </summary>
+The cancer risk estimates are based on ambient air concentrations of 45 carcinogenic air toxins as modeled by EPA in NATA 2014. Risk for each air toxin was esitmated by dividing the ambient air concentration in NATA 2014 by the Oregon specific ABC for the air toxin. Cancer risk from these air toxins was summed for each census tract to develop an estimate of the tract-level cancer risk from air toxins.
+
+<p>&nbsp;</p>
+</details>
+
+<p>&nbsp;</p>
+  <details> <summary><span style="font-size:20px">Which air toxins were used to estimate cancer risk? </span>
+  </summary>
+  The table below shows the ~45 air toxins that were used to estimate cancer risk.
+
+```{r abc_tbl, echo = FALSE, results = 'asis'} 
+  tbl <- read.csv("../r_air_toxics/at_carcinogens_for_web.csv", stringsAsFactors = FALSE)
+  autofit(regulartable(tbl))
+
+```
+  
+  <p>&nbsp;</p>
+</details>
+  
+
+
+
