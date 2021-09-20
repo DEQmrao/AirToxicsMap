@@ -4,8 +4,10 @@ This repo contains code to create an interactive map of OR-specific tract-level 
 
 The code to generate the Air Toxcis Cancer Risk map is contained in three files:
 * risk_calc.R - this cscript reads in the NATA ambient concentrations and the state-specific chronic cancer risk TRVs (ure_trv.csv) to calculate cancer risk. 
-It outputs 3 files:
-+ 
+It outputs 3 files in the "results" folder:
+    + or_air_toxics_ambient_cancer_risk_all.csv (contains cancer risk for state, counties and tracts)
+    + or_air_toxics_ambient_cancer_risk_tracts.csv (contains cancer risk for tracts only)
+    + or_air_toxics_ambient_cancer_risk_counties.csv (contains cancer risk averages for the coutnies and state)
 * at_sector_graphs.R - this script takes the tract-level cancer risk file and creates graphs showing the top five sectors/top five air toxins for the layers to be displayed in the interactive map. 
 It also uses census data to create a demographic profile for each census tract.
 The output from this file are a bunch (~3000) graphs, which are placed in the images folder.
