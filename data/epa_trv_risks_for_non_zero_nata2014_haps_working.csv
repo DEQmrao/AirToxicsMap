@@ -1,0 +1,95 @@
+diff flag,cas,nata.name,epa_list_name,trv_chem,epa-ure_ug-1m3,epa_inv_ure,trv_can1_ugm.3,epa_rfc_mg.3,epa_rfc_ug.m3,trv_noncan1_ugm.3,monitored by lab?
+hi_diff,100-41-4,ETHYLBENZENE,Ethyl benzene,Ethyl benzene,0.0000025,0.4,0.4,1,1000,260,Yes
+,100-42-5,STYRENE,Styrene,Styrene, ,, ,1,1000,1000,Yes
+hi_diff,100-44-7,BENZYL CHLORIDE,Benzyl chloride,Benzyl chloride,0.000049,0.020408163,0.020408163, ,,1,No
+hi_diff,101-68-8,"4,4'-METHYLENEDIPHENYL DIISOCYANATE (MDI)",Methylene diphenyl diisocyanate,Methylene diphenyl diisocyanate (MDI), ,, ,0.0006,0.6,0.08,No
+hi_diff,106-46-7,"1,4-DICHLOROBENZENE",p-Dichlorobenzene,"p-Dichlorobenzene (1,4-Dichlorobenzene)",0.000011,0.090909091,0.090909091,0.8,800,60,Yes
+,106-88-7,"1,2-EPOXYBUTANE","1,2-Epoxybutane","1,2-Epoxybutane", ,, ,0.02,20,20,No
+both_diff,106-89-8,EPICHLOROHYDRIN,Epichlorohydrin,Epichlorohydrin,0.0000012,0.833333333,0.043478261,0.001,1,3,No
+,106-93-4,ETHYLENE DIBROMIDE (DIBROMOETHANE),Ethylene dibromide,"Ethylene dibromide (EDB, 1,2-Dibromoethane)",0.0006,0.001666667,0.001666667,0.009,9,9,Yes
+,106-99-0,"1,3-BUTADIENE","1,3-Butadiene","1,3-Butadiene",0.00003,0.033333333,0.0330033,0.002,2,2,Yes
+,107-02-8,ACROLEIN,Acrolein,Acrolein, ,, ,0.00035,0.35,0.35,Yes
+,107-05-1,ALLYL CHLORIDE,Allyl chloride,Allyl chloride,0.000006,0.166666667,0.166666667,0.001,1,1,No
+hi_diff,107-06-2,"ETHYLENE DICHLORIDE (1,2-DICHLOROETHANE)",Ethylene dichloride,"Ethylene dichloride (EDC, 1,2-Dichloroethane)",0.000026,0.038461538,0.038461538,2.4,2400,7,Yes
+hi_diff,107-13-1,ACRYLONITRILE,Acrylonitrile,Acrylonitrile,0.000068,0.014705882,0.014705882,0.002,2,5,Yes
+,107-21-1,ETHYLENE GLYCOL,Ethylene glycol,Ethylene glycol, ,, ,0.4,400,400,No
+,108-05-4,VINYL ACETATE,Vinyl acetate,Vinyl acetate, ,, ,0.2,200,200,No
+,108-10-1,METHYL ISOBUTYL KETONE (HEXONE),Methyl isobutyl ketone,"Methyl isobutyl ketone (MIBK, Hexone)", ,, ,3,3000,3000,Yes
+,108-31-6,MALEIC ANHYDRIDE,Maleic anhydride,Maleic anhydride, ,, ,0.0007,0.7,0.7,No
+,108-88-3,TOLUENE,Toluene,Toluene, ,, ,5,5000,5000,Yes
+hi_diff,108-90-7,CHLOROBENZENE,Chlorobenzene,Chlorobenzene, ,, ,1,1000,50,Yes
+,108-95-2,PHENOL,Phenol,Phenol, ,, ,0.2,200,200,No
+,110-54-3,HEXANE,n-Hexane,Hexane, ,, ,0.7,700,700,Yes
+hi_diff,111-42-2,DIETHANOLAMINE,Diethanolamine,Diethanolamine, ,, ,0.003,3,0.2,No
+hi_diff,117-81-7,BIS(2-ETHYLHEXYL)PHTHALATE (DEHP),Bis(2-ethylhexyl)phthalate,Bis(2-ethylhexyl) phthalate (DEHP),0.0000024,0.416666667,0.416666667,0.01,10, ,No
+both_diff,118-74-1,HEXACHLOROBENZENE,Hexachlorobenzene,Hexachlorobenzene,0.00046,0.002173913,0.001960784,0.003,3, ,No
+hi_diff,120-82-1,"1,2,4-TRICHLOROBENZENE","1,2,4-Trichlorobenzene","1,2,4-Trichlorobenzene", ,, ,0.2,200, ,No
+hi_diff,121-14-2,"2,4-DINITROTOLUENE","2,4-Dinitrotoluene","2,4-Dinitrotoluene",0.000089,0.011235955,0.011235955,0.007,7, ,No
+hi_diff,121-44-8,TRIETHYLAMINE,Triethylamine,Triethylamine, ,, ,0.007,7,200,No
+,123-38-6,PROPIONALDEHYDE,Propionaldehyde,Propionaldehyde, ,, ,0.008,8,8,Yes
+,123-91-1,"1,4-DIOXANE","1,4-Dioxane","1,4-Dioxane",0.000005,0.2,0.2,0.03,30,30,Yes
+can_diff,126-99-8,CHLOROPRENE,Chloroprene,Chloroprene,0.00048,0.002083333,0.003333333,0.02,20,20,No
+,127-18-4,TETRACHLOROETHYLENE,Tetrachloroethene,Tetrachloroethene (Perchloroethylene),0.00000026,3.846153846,3.846153846,0.04,40,41,Yes
+,1309-64-4,ANTIMONY COMPOUNDS,Antimony trioxide,Antimony trioxide, ,, ,0.0002,0.2,0.2,No
+,1319-77-3,CRESOL_CRESYLIC ACID (MIXED ISOMERS),Cresols (mixed),"Cresols (mixture), including m-cresol, o-cresol, p-cresol", ,, ,0.6,600,600,No
+hi_diff,1330-20-7,XYLENES (MIXED ISOMERS),Xylenes (mixed),"Xylene (mixture), including m-xylene, o-xylene, p-xylene", ,, ,0.1,100,220,No
+,1336-36-3,POLYCHLORINATED BIPHENYLS (AROCLORS),Polychlorinated biphenyls,Polychlorinated biphenyls (PCBs),0.0001,0.01,0.01, ,,,No
+hi_diff,1634-04-4,METHYL TERT-BUTYL ETHER,Methyl tert-butyl ether,Methyl tert-butyl ether,0.00000026,3.846153846,3.846153846,3,3000,8000,Yes
+hi_diff,18540-29-9,CHROMIUM VI (HEXAVALENT),Chromium (VI) compounds,"Chromium VI, chromate and dichromate particulate",0.012,8.33E-05,0.0000833,0.0001,0.1,0.2,Yes
+hi_diff,26471-62-5,"2,4-TOLUENE DIISOCYANATE","2,4/2,6-Toluene diisocyanate mixture (TDI)","Toluene diisocyanates (2,4- and 2,6-)",0.000011,0.090909091,0.090909091,0.00007,0.07,0.021,No
+hi_diff,463-58-1,CARBONYL SULFIDE,,Carbonyl sulfide, ,, ,0.163,163,10,No
+both_diff,50-00-0,FORMALDEHYDE,Formaldehyde,Formaldehyde,0.000013,0.076923077,0.166666667,0.0098,9.8,9,Yes
+,532-27-4,2-CHLOROACETOPHENONE,2-Chloroacetophenone,2-Chloroacetophenone, ,, ,0.00003,0.03,0.03,No
+hi_diff,542-75-6,"1,3-DICHLOROPROPENE","1,3-Dichloropropene","1,3-Dichloropropene",0.000004,0.25,0.25,0.02,20,32,No
+,56-23-5,CARBON TETRACHLORIDE,Carbon tetrachloride,Carbon tetrachloride,0.000006,0.166666667,0.166666667,0.1,100,100,Yes
+hi_diff,57-12-5,CYANIDE COMPOUNDS,Cyanide compounds,NA, ,, ,0.0008,0.8,,No
+,60-35-5,ACETAMIDE,Acetamide,Acetamide,0.00002,0.05,0.05, ,,,No
+hi_diff,67-56-1,METHANOL,Methanol,Methanol, ,, ,20,20000,4000,No
+hi_diff,67-66-3,CHLOROFORM,Chloroform,Chloroform, ,, ,0.098,98,300,Yes
+hi_diff,68-12-2,DIMETHYL FORMAMIDE,Dimethyl formamide,Dimethyl formamide, ,, ,0.03,30,80,No
+hi_diff,71-43-2,BENZENE,Benzene,Benzene,0.0000078,0.128205128,0.128205128,0.03,30,3,Yes
+,71-55-6,"1,1,1-TRICHLOROETHANE",,"1,1,1-Trichloroethane (Methyl chloroform)", ,, ,5,5000,5000,Yes
+,74-83-9,METHYL BROMIDE (BROMOMETHANE),Methyl bromide,Bromomethane (Methyl bromide), ,, ,0.005,5,5,Yes
+,74-87-3,METHYL CHLORIDE (CHLOROMETHANE),Methyl chloride,Chloromethane (Methyl chloride), ,, ,0.09,90,90,Yes
+,7439-92-1,LEAD COMPOUNDS,Lead compounds,Lead and compounds, ,, ,0.00015,0.15,0.15,Yes
+hi_diff,7439-96-5,MANGANESE COMPOUNDS,Manganese compounds,Manganese and compounds, ,, ,0.0003,0.3,0.09,Yes
+,7439-97-6,MERCURY COMPOUNDS,,Mercury and compounds, ,, ,0.0003,0.3,0.3,No
+both_diff,7440-02-0,NICKEL COMPOUNDS,Nickel compounds,Nickel and compounds,0.00048,0.002083333,0.003846154,0.00009,0.09,0.014,Yes
+,7440-38-2,ARSENIC COMPOUNDS(INORGANIC INCLUDING ARSINE),Arsenic compounds,Arsenic and compounds,0.0043,0.000232558,0.000232558,0.000015,0.015,0.015,Yes
+hi_diff,7440-41-7,BERYLLIUM COMPOUNDS,Beryllium compounds,Beryllium and compounds,0.0024,0.000416667,0.000416667,0.00002,0.02,0.007,Yes
+,7440-43-9,CADMIUM COMPOUNDS,Cadmium compounds,Cadmium and compounds,0.0018,0.000555556,0.000555556,0.00001,0.01,0.01,Yes
+,7440-48-4,COBALT COMPOUNDS,Cobalt compounds,Cobalt and compounds, ,, ,0.0001,0.1,0.1,Yes
+hi_diff,7488-56-4,SELENIUM COMPOUNDS,Selenium disulfide,NA, ,, ,0.02,20,,No
+hi_diff,75-00-3,ETHYL CHLORIDE,Ethyl chloride,Chloroethane (Ethyl chloride), ,, ,10,10000,30000,Yes
+,75-01-4,VINYL CHLORIDE,Vinyl chloride,Vinyl chloride,0.0000088,0.113636364,0.113636364,0.1,100,100,Yes
+,75-05-8,ACETONITRILE,Acetonitrile,Acetonitrile, ,, ,0.06,60,60,Yes
+hi_diff,75-07-0,ACETALDEHYDE,Acetaldehyde,Acetaldehyde,0.0000022,0.454545455,0.454545455,0.009,9,140,Yes
+can_diff,75-09-2,METHYLENE CHLORIDE,Methylene chloride,Dichloromethane (Methylene chloride),0.000000016,62.5,100,0.6,600,600,Yes
+hi_diff,75-15-0,CARBON DISULFIDE,Carbon disulfide,Carbon disulfide, ,, ,0.7,700,800,Yes
+can_diff,75-21-8,ETHYLENE OXIDE,Ethylene oxide,Ethylene oxide,0.005,0.0002,0.000333333,0.03,30,30,No
+,75-25-2,BROMOFORM,Bromoform,Bromoform,0.0000011,0.909090909,0.909090909, ,,,No
+,75-34-3,"ETHYLIDENE DICHLORIDE (1,1-DICHLOROETHANE)","Ethylidene dichloride (1,1-Dichloroethane)","1,1-Dichloroethane (Ethylidene dichloride)",0.0000016,0.625,0.625,0.5,500,,Yes
+,75-35-4,VINYLIDENE CHLORIDE,Vinylidene chloride,Vinylidene chloride, ,, ,0.2,200,200,Yes
+,75-44-5,PHOSGENE,Phosgene,Phosgene, ,, ,0.0003,0.3,0.3,No
+,75-56-9,PROPYLENE OXIDE,Propylene oxide,Propylene oxide,0.0000037,0.27027027,0.27027027,0.03,30,30,No
+,7647-01-0,HYDROCHLORIC ACID (HYDROGEN CHLORIDE [GAS ONLY]),Hydrochloric acid,Hydrochloric acid, ,, ,0.02,20,20,No
+,7664-39-3,HYDROGEN FLUORIDE (HYDROFLUORIC ACID),Hydrofluoric acid,Hydrogen fluoride, ,, ,0.014,14,13,No
+,77-47-4,HEXACHLOROCYCLOPENTADIENE,Hexachlorocyclopentadiene,Hexachlorocyclopentadiene, ,, ,0.0002,0.2,0.2,No
+,7782-50-5,CHLORINE,Chlorine,Chlorine, ,, ,0.00015,0.15,0.15,No
+,78-59-1,ISOPHORONE,Isophorone,Isophorone, ,, ,2,2000,2000,No
+,78-87-5,"PROPYLENE DICHLORIDE (1,2-DICHLOROPROPANE)",Propylene dichloride,"1,2-Dichloropropane (Propylene dichloride)", ,, ,0.004,4,4,Yes
+hi_diff,79-00-5,"1,1,2-TRICHLOROETHANE","1,1,2-Trichloroethane","1,1,2-Trichloroethane (Vinyl trichloride)",0.000016,0.0625,0.0625,0.4,400,,Yes
+can_diff,79-01-6,TRICHLOROETHYLENE,Trichloroethylene,"Trichloroethene (TCE, Trichloroethylene)",0.0000048,0.208333333,0.243902439,0.002,2,2.1,Yes
+can_diff,79-06-1,ACRYLAMIDE,Acrylamide,Acrylamide,0.00016,0.00625,0.01,0.006,6,6,No
+,79-10-7,ACRYLIC ACID,Acrylic acid,Acrylic acid, ,, ,0.001,1,1,No
+can_diff,79-46-9,2-NITROPROPANE,2-Nitropropane,2-Nitropropane,0.0000056,0.178571429, ,0.02,20,20,No
+,80-62-6,METHYL METHACRYLATE,Methyl methacrylate,Methyl methacrylate, ,, ,0.7,700,700,Yes
+hi_diff,822-06-0,HEXAMETHYLENE DIISOCYANATE,"Hexamethylene-1,6-diisocyanate","Hexamethylene-1,6-diisocyanate", ,, ,0.00001,0.01,0.069,No
+hi_diff,87-68-3,HEXACHLOROBUTADIENE,Hexachlorobutadiene,Hexachlorobutadiene,0.000022,0.045454545,0.045454545,0.09,90,,No
+hi_diff,87-86-5,PENTACHLOROPHENOL,Pentachlorophenol,Pentachlorophenol,0.0000051,0.196078431,0.196078431,0.1,100,,No
+can_diff,88-06-2,"2,4,6-TRICHLOROPHENOL","2,4,6-Trichlorophenol","2,4,6-Trichlorophenol",0.0000031,0.322580645,0.05, ,,,No
+,91-20-3,NAPHTHALENE,Naphthalene,Naphthalene,0.000034,0.029411765,0.029411765,0.003,3,3.7,Yes
+can_diff,95-53-4,O-TOLUIDINE,o-Toluidine,o-Toluidine,0.000051,0.019607843, , ,,,No
+,98-82-8,CUMENE,Cumene,Isopropylbenzene (Cumene), ,, ,0.4,400,400,No
+,98-95-3,NITROBENZENE,Nitrobenzene,Nitrobenzene,0.00004,0.025,0.025,0.009,9,9,No
+can_diff,DIESEL EMIS.,DIESEL PM,Diesel engine emissions,Diesel Particulate Matter, ,,0.1,0.005,5,5,Yes? No?
