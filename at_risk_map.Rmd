@@ -110,29 +110,7 @@ m
 ```
 
 
-<p>&nbsp;</p>
-   <details> <summary><span style="font-size:20px"> How was the cancer risk calculated?
-   </span>
-  </summary>
-The cancer risk estimates are based on ambient air concentrations of 45 carcinogenic air toxins as modeled by EPA in NATA 2014. Risk for each air toxin was esitmated by dividing the ambient air concentration in NATA 2014 by the Oregon specific ABC for the air toxin. Cancer risk from these air toxins was summed for each census tract to develop an estimate of the tract-level cancer risk from air toxins.
-
-<p>&nbsp;</p>
-</details>
-
-<p>&nbsp;</p>
-  <details> <summary><span style="font-size:20px">Which air toxins were used to estimate cancer risk? </span>
-  </summary>
-  The table below shows the ~45 air toxins that were used to estimate cancer risk.
-
-```{r abc_tbl, echo = FALSE, results = 'asis'} 
-  tbl <- read.csv("../r_air_toxics/at_carcinogens_for_web.csv", stringsAsFactors = FALSE)
-  autofit(regulartable(tbl))
-
-```
-  
-  <p>&nbsp;</p>
-</details>
-  
+ 
 
 
 
