@@ -35,7 +35,8 @@ rm(at_st)
 
 # extract top five air toxins contibuting to cancer risk for each census tract
 yat <- at_all %>% group_by(Tract) %>% 
-       arrange(desc(Total.Cancer.Risk..per.million.)) %>% 
+
+         arrange(desc(Total.Cancer.Risk..per.million.)) %>% 
        slice(1:5) %>%
        select("Tract", "County", "Population", "Pollutant.Name", "Total.Cancer.Risk..per.million.")
 colnames(yat) <- c("Tract", "County", "Population", "Air.Toxin", "Cancer.Risk")
@@ -165,7 +166,9 @@ race_vars <- c(White = "B03002_003", Black = "B03002_004", Native = "B03002_005"
 # Request a summary variable from the ACS
 or_race <- get_acs(geography = "tract", 
                    state = "OR",
-                   variables = race_vars, 
+                   variables = race_vars,
+                   survey = "acs5",
+                   year = 2019,
                    summary_var = c(tr_pop = "B03002_001"))
 
 # for now, focus on %non-white as an indicator of diversity
@@ -180,7 +183,9 @@ or_dem <- or_dem %>% mutate(pct_div = (100 - (pop_white*100/pop_tot)))
 # retrieve poverty variables, and merge with or_dem dataframe
 or_pov <- get_acs(geography = "tract", 
                   state = "OR",
-                  variables = c(over_2x_pov = "C17002_008"), 
+                  variables = c(over_2x_pov = "C17002_008"),
+                  survey = "acs5",
+                  year = 2019,
                   summary_var = "C17002_001")
 or_pov$pct_u2xpov <- 100 - or_pov$estimate*100/or_pov$summary_est
 or_dem <- merge(or_dem, or_pov[, c("GEOID", "pct_u2xpov")])
@@ -191,6 +196,8 @@ or_dem <- merge(or_dem, or_pov[, c("GEOID", "pct_u2xpov")])
 or_edu <- get_acs(geography = "tract", 
                   state = "OR",
                   table = c("B15002"),
+                  survey = "acs5",
+                  year = 2019,
                   output = "wide")
 or_edu$lshs <- or_edu$B15002_003E + or_edu$B15002_004E + or_edu$B15002_005E + or_edu$B15002_006E +
   or_edu$B15002_007E + or_edu$B15002_008E + or_edu$B15002_009E + or_edu$B15002_010E +
