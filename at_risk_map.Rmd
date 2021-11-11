@@ -21,6 +21,14 @@ options(tigris_use_cache = TRUE)
 
 or_tracts <- tracts(state = "41", year = 2019)
 
+## read in the cancer risk data for the state and county-level risk
+at_st <- read.csv("results/or_air_toxics_ambient_cancer_risk_counties.csv", stringsAsFactors = FALSE)
+at_st <- at_st %>% select("County", "Tract", "Pollutant.Name", risk = "Total.Cancer.Risk..per.million.")
+st_at_ris <- at_st %>% group_by(County) %>% summarize(tot_ris = sum(risk, na.rm = TRUE)) %>% filter(County == "Entire State")
+st_form_ris <- at_st %>% filter(County == "Entire State") %>% filter(Pollutant.Name == "FORMALDEHYDE") %>% select(risk)
+st_dpm_ris <- at_st %>% filter(County == "Entire State") %>% filter(Pollutant.Name == "DIESEL PM") %>% select(risk)
+
+## read in the tract-level info
 or_ris_tracts <- read.csv("results/or_air_toxics_ambient_cancer_risk_tracts.csv", stringsAsFactors = FALSE)
 or_tot_can <- or_ris_tracts %>% group_by(Tract) %>% 
                                   summarize(County = first(County),
@@ -49,19 +57,19 @@ or_tot$lab = paste0( or_tot$GEOID, ", ", or_tot$County, " County")
 or_tot$popn = 
     paste(pop_title, 
     "<b>Tract cancer risk :</b> ", as.character(round(or_tot$cancer_ris)), " per million",                              
-    "<br><b>State-wide cancer risk :</b> 23 per million <br><br><br>")
+    "<br><b>State-wide cancer risk :</b> ", as.character(round(st_at_ris$tot_ris)), " per million <br><br><br>")
 
 
 or_tot$popf = 
     paste(pop_title, 
     "<b>Tract cancer risk from formaldehyde :</b> ", as.character(round(or_tot$form_ris)), " per million",     
-    "<br><b>State-wide cancer risk from formaldehyde:</b> 7 per million <br><br><br>")
+    "<br><b>State-wide cancer risk from formaldehyde:</b>", as.character(round(st_form_ris)), " per million <br><br><br>")
 
 
 or_tot$popd = 
     paste(pop_title, 
     "<b>Tract cancer risk from diesel pm :</b> ", as.character(round(or_tot$dpm_ris)), " per million", 
-    "<br><b>State-wide cancer risk from diesel pm:</b> 3 per million <br><br><br>")
+    "<br><b>State-wide cancer risk from diesel pm:</b> ", as.character(round(st_dpm_ris)),  " per million <br><br><br>")
 
 ## assign color palettes to the choropleth maps
 npal <- colorNumeric(palette = "YlOrRd", domain = or_tot$cancer_ris)
