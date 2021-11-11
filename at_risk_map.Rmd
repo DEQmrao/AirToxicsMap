@@ -8,53 +8,64 @@ knitr::opts_chunk$set(echo = TRUE)
 
 library(tidyverse)
 library(rgdal)
+library(sf)
 library(leaflet)
 library(RColorBrewer)
 library(flextable)
 library(htmltools)
 library(htmlwidgets)
 library(leafpop)
+library(tigris)
 
-## read in the shapefile
-or_tot1 = readOGR("gis/tract_cty_pop_atrisk.shp",
-              layer="tract_cty_pop_atrisk")
+options(tigris_use_cache = TRUE)
 
-## filter out tracts that do not have a cancer risk (there are ~8 treacts with zero population)
-or_tot <- or_tot1[!is.na(or_tot1@data$cancer_ris),]
+or_tracts <- tracts(state = "41", year = 2019)
 
-## remove the shapefile with zero population tracts from the environment
-rm(or_tot1)
-#cty <- read.csv("tract_cty_pop.csv", stringsAsFactors = FALSE)
-#or_tot@data <- merge(or_tot@data, cty, by = "Tract", all.x = TRUE)
+or_ris_tracts <- read.csv("results/or_air_toxics_ambient_cancer_risk_tracts.csv", stringsAsFactors = FALSE)
+or_tot_can <- or_ris_tracts %>% group_by(Tract) %>% 
+                                  summarize(County = first(County),
+                                            pop10 = first(Population),
+                                            cancer_ris = sum(Total.Cancer.Risk..per.million., na.rm = TRUE))
+or_form_can <- or_ris_tracts %>% filter(Pollutant.Name == "FORMALDEHYDE") %>% 
+                                 select(Tract,form_ris = Total.Cancer.Risk..per.million.)
+or_dpm_can <- or_ris_tracts %>% filter(Pollutant.Name == "DIESEL PM") %>% 
+                                 select(Tract,dpm_ris = Total.Cancer.Risk..per.million.)
+or_tot_can <- merge(or_tot_can, or_form_can, by = "Tract", all = TRUE )
+or_tot_can <- merge(or_tot_can, or_dpm_can, by = "Tract", all = TRUE )
+rm(or_form_can, or_dpm_can)
+
+or_ris_tracts$chr_tract <- as.character(or_ris_tracts$Tract)
+or_tot <- merge(or_tracts, or_tot_can, by.x = "GEOID", by.y = "Tract")
+
 
 ## add path for pre-generated graphs for each tract
-or_tot@data$at_img <- paste0("images/totp_", or_tot@data$Tract, ".png" )
-or_tot@data$form_img <- paste0("images/form_", or_tot@data$Tract, ".png" )
-or_tot@data$dpm_img <- paste0("images/dpm_", or_tot@data$Tract, ".png" )
+or_tot$at_img <- paste0("images/totp_", or_tot$GEOID, ".png" )
+or_tot$form_img <- paste0("images/form_", or_tot$GEOID, ".png" )
+or_tot$dpm_img <- paste0("images/dpm_", or_tot$GEOID, ".png" )
 
 #create pop-ups, one for each layer in the map
-pop_title <- paste0("<u>Tract ", or_tot@data$Tract, ", ", or_tot@data$County, " County </u> <br/> Population (2010) ", or_tot@data$Population, "<br>" )
-or_tot@data$lab = paste0( or_tot@data$Tract, ", ", or_tot@data$County, " County")
-or_tot@data$popn = 
+pop_title <- paste0("<u>Tract ", or_tot$GEOID, ", ", or_tot$County, " County </u> <br/> Population (2010) ", or_tot$pop10, "<br>" )
+or_tot$lab = paste0( or_tot$GEOID, ", ", or_tot$County, " County")
+or_tot$popn = 
     paste(pop_title, 
-    "<b>Tract cancer risk :</b> ", as.character(round(or_tot@data$cancer_ris)), " per million",                              
+    "<b>Tract cancer risk :</b> ", as.character(round(or_tot$cancer_ris)), " per million",                              
     "<br><b>State-wide cancer risk :</b> 23 per million <br><br><br>")
 
 
-or_tot@data$popf = 
+or_tot$popf = 
     paste(pop_title, 
-    "<b>Tract cancer risk from formaldehyde :</b> ", as.character(round(or_tot@data$formaldehy)), " per million",     
+    "<b>Tract cancer risk from formaldehyde :</b> ", as.character(round(or_tot$form_ris)), " per million",     
     "<br><b>State-wide cancer risk from formaldehyde:</b> 7 per million <br><br><br>")
 
 
-or_tot@data$popd = 
+or_tot$popd = 
     paste(pop_title, 
-    "<b>Tract cancer risk from diesel pm :</b> ", as.character(round(or_tot@data$dpm_ris)), " per million", 
+    "<b>Tract cancer risk from diesel pm :</b> ", as.character(round(or_tot$dpm_ris)), " per million", 
     "<br><b>State-wide cancer risk from diesel pm:</b> 3 per million <br><br><br>")
 
 ## assign color palettes to the choropleth maps
 npal <- colorNumeric(palette = "YlOrRd", domain = or_tot$cancer_ris)
-fpal <- colorNumeric(palette = "BuPu", domain = or_tot$formaldehy)
+fpal <- colorNumeric(palette = "BuPu", domain = or_tot$form_ris)
 dpal <- colorNumeric(palette = "Greys", domain = or_tot$dpm_ris)
 
 ## remove any existing map....useful for the debugging phase
@@ -64,24 +75,24 @@ rm(m)
 m = leaflet(height = 800) %>%      
   addProviderTiles(providers$Esri.WorldGrayCanvas, group = "ESRI World Gray") %>% 
   addProviderTiles(providers$Esri.WorldStreetMap, group = "ESRI World Street") %>%
-  setView(-121, 44, 7) %>% 
+  setView(-121, 44.6, 7) %>% 
   addPolygons(data=or_tot, group = "45 air toxins", color = "#cccccc", weight = 0.2, smoothFactor = 0.5,
               opacity = 0.4, fillOpacity = 0.7,
               fillColor = ~npal(cancer_ris),
               label = ~lab,
               popup = ~popn, 
               highlightOptions = highlightOptions(color = "#aaaaaa", weight = 1, bringToFront = TRUE)) %>%
-  addPopupImages(image = or_tot@data$at_img, group = "45 air toxins", height = 500 ) %>%
-  addLegend(group = "45 air toxins", "bottomleft", title = "cancer risk <br>(# per million)", pal = npal, values = or_tot@data$cancer_ris) %>%
+  addPopupImages(image = or_tot$at_img, group = "45 air toxins", height = 500 ) %>%
+  addLegend(group = "45 air toxins", "bottomleft", title = "cancer risk <br>(# per million)", pal = npal, values = or_tot$cancer_ris) %>%
   
   addPolygons(data=or_tot, group = "formaldehyde", color = "#cccccc", weight = 0.2, smoothFactor = 0.5,
               opacity = 0.4, fillOpacity = 0.7,
-              fillColor = ~fpal(formaldehy),
+              fillColor = ~fpal(form_ris),
               label = ~lab,
               popup = ~popf, 
               highlightOptions = highlightOptions(color = "#aaaaaa", weight = 1, bringToFront = TRUE)) %>%
-  addPopupImages(image = or_tot@data$form_img, group = "formaldehyde", width = 300 ) %>%
-  addLegend(group = "formaldehyde", "bottomleft", title = "cancer risk <br>(# per million)", pal = fpal, values = or_tot@data$formaldehy) %>%
+  addPopupImages(image = or_tot$form_img, group = "formaldehyde", width = 300 ) %>%
+  addLegend(group = "formaldehyde", "bottomleft", title = "cancer risk <br>(# per million)", pal = fpal, values = or_tot$form_ris) %>%
   
   addPolygons(data=or_tot, group = "diesel pm", color = "#cccccc", weight = 0.2, smoothFactor = 0.5,
               opacity = 0.4, fillOpacity = 0.8,
@@ -89,8 +100,8 @@ m = leaflet(height = 800) %>%
               label = ~lab,
               popup = ~popd, 
               highlightOptions = highlightOptions(color = "#aaaaaa", weight = 1, bringToFront = TRUE)) %>%
-  addPopupImages(image = or_tot@data$dpm_img, group = "diesel pm", width = 300 ) %>%
-  addLegend(group = "diesel pm", "bottomleft", title = "cancer risk <br>(# per million)", pal = dpal, values = or_tot@data$dpm_ris) %>%
+  addPopupImages(image = or_tot$dpm_img, group = "diesel pm", width = 300 ) %>%
+  addLegend(group = "diesel pm", "bottomleft", title = "cancer risk <br>(# per million)", pal = dpal, values = or_tot$dpm_ris) %>%
 
   addLayersControl(
         baseGroups = c("ESRI World Street", "ESRI World Gray" ),
